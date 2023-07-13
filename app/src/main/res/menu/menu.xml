@@ -11,5 +11,9 @@
         android:id="@+id/result"
         android:icon="@drawable/baseline_history_24"
         android:title="View Result" />
+    <item
+        android:id="@+id/github"
+        android:icon="@drawable/baseline_drive_folder_upload_24"
+        android:title="Go to Github" />
 </group>
 </menu>

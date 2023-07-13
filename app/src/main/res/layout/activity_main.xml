@@ -34,16 +34,6 @@
             android:id="@+id/frameLayout"
             android:layout_below="@id/topAppBar"/>
 
-        <Button
-            android:id="@+id/gitBtn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="GitHub"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginBottom="300dp"
-            />
-
     </RelativeLayout>
 
     <com.google.android.material.navigation.NavigationView

@@ -13,28 +13,21 @@ import android.view.View;
 import android.content.Intent;
 import android.net.Uri;
 import android.widget.Toast;
-
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.navigation.NavigationView;
 
 public class MainActivity extends AppCompatActivity {
-    Button github;
-    final private String link = "https://github.com/faiziedu";
+
+    Button githubButton;
+    final private String link = "https://github.com/faiziedu/AlphabetTest";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        github = findViewById(R.id.gitBtn);
+        //githubButton = findViewById(R.id.gitBtn);
 
-        github.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent I = new Intent(Intent.ACTION_VIEW, Uri.parse(link));
-                    startActivity(I);
-            }
-        });
 
         MaterialToolbar toolbar = findViewById(R.id.topAppBar);
         DrawerLayout drawerLayout = findViewById(R.id.drawer_layout);
@@ -61,6 +54,9 @@ public class MainActivity extends AppCompatActivity {
                         replaceFragment(new LetterFragment());break;
                     case R.id.result:
                         replaceFragment(new History());break;
+                    case R.id.github:
+                                Intent I = new Intent(Intent.ACTION_VIEW, Uri.parse(link));
+                                startActivity(I);;break;
                     default:
                         return true;
 
