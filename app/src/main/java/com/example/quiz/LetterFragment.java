@@ -2,12 +2,17 @@ package com.example.quiz;
 
 import android.os.Bundle;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+
 import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -24,6 +29,7 @@ public class LetterFragment extends Fragment {
     private int currentAttemptNumber = 1;
     private String answerString = "";
     String Letter;
+    int result;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -101,14 +107,16 @@ public class LetterFragment extends Fragment {
 
         if (expectedAnswer.equals(answerString)) {
             answerTextView.setText("Correct!");
-            currentAttemptAnswers.add("Correct! Selected Letter '"+Letter+"' is "+answerString);
+            //currentAttemptAnswers.add("Correct! Selected Letter '"+Letter+"' is "+answerString);
+            result=result+1;
         } else {
             answerTextView.setText("Incorrect! This is "+answerString+".");
-            currentAttemptAnswers.add("InCorrect! Selected Letter '"+Letter+"' is not "+expectedAnswer+" it is "+answerString);
+            //currentAttemptAnswers.add("InCorrect! Selected Letter '"+Letter+"' is not "+expectedAnswer+" it is "+answerString);
         }
         currentQuestionCount++;
 
         if (currentQuestionCount == 5) {
+            currentAttemptAnswers.add("Marks = "+result+" / 5");
             processShiftCompletion();
         }
 
@@ -129,6 +137,12 @@ public class LetterFragment extends Fragment {
             currentAttemptNumber++;
             currentQuestionCount = 0;
             currentAttemptAnswers.clear();
+            result=0;
+            Toast.makeText(requireContext(), "One Attempt completed", Toast.LENGTH_SHORT).show();
+            FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.replace(R.id.frameLayout, new WellcomeFragment());
+            fragmentTransaction.commit();
         }
     }
     private String getRandomLetter() {

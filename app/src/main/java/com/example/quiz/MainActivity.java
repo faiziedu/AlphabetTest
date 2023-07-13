@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import android.widget.Button;
@@ -12,7 +13,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.content.Intent;
 import android.net.Uri;
-import android.widget.Toast;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.navigation.NavigationView;
 
@@ -30,6 +30,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         MaterialToolbar toolbar = findViewById(R.id.topAppBar);
+        replace(new WellcomeFragment());
         DrawerLayout drawerLayout = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.navigation_view);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -59,7 +60,6 @@ public class MainActivity extends AppCompatActivity {
                                 startActivity(I);;break;
                     default:
                         return true;
-
                 }
                 return true;
             }
@@ -71,6 +71,13 @@ public class MainActivity extends AppCompatActivity {
         FragmentManager fragmentManager=getSupportFragmentManager();
         FragmentTransaction fragmentTransaction= fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.frameLayout,new LetterFragment());
+        fragmentTransaction.commit();
+    }
+    private void replace(Fragment fragment)
+    {
+        FragmentManager fragmentManager=getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction= fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.frameLayout,fragment);
         fragmentTransaction.commit();
     }
 

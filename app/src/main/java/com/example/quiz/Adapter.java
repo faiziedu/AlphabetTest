@@ -1,6 +1,13 @@
 package com.example.quiz;
 
+import android.graphics.Color;
+import android.graphics.Typeface;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.SpannableStringBuilder;
 import android.text.TextUtils;
+import android.text.style.ForegroundColorSpan;
+import android.text.style.StyleSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,10 +32,27 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        List<String> attempt = attemptList.get(position);
+        List<String> shift = attemptList.get(position);
         holder.attemptNumberTextView.setText("Attempt " + (position + 1));
-        String answersText = TextUtils.join("\n", attempt);
-        holder.answersTextView.setText(answersText);
+
+        SpannableStringBuilder answersBuilder = new SpannableStringBuilder();
+
+        for (int i = 0; i < shift.size(); i++) {
+            String answer = shift.get(i);
+            SpannableString spannableAnswer = new SpannableString(answer);
+
+            if (i == shift.size() - 1) {
+                spannableAnswer.setSpan(new StyleSpan(Typeface.BOLD), 0, spannableAnswer.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                spannableAnswer.setSpan(new ForegroundColorSpan(Color.BLACK), 0, spannableAnswer.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            }
+
+            answersBuilder.append(spannableAnswer);
+            if (i < shift.size() - 1) {
+                answersBuilder.append("\n");
+            }
+        }
+
+        holder.answersTextView.setText(answersBuilder);
     }
 
     @Override
